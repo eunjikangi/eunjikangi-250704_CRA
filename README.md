@@ -8,7 +8,8 @@
 |2. 클래스 레벨 리팩토링|D2 - Regression Test 를 위한 Unit Test 개발|O|
 ||D3 – 확장성을 고려한 설계, 부품이 추가되더라도 Client Code에 변경이 없도록 한다.|O|
 |3. 디자인 패턴 사용하기|D4 - 리팩토링에 디자인 패턴을 적용한다.|X|
-|4. 코드 커버리지 100%|D5 - 리팩토링이 끝난 코드에, 코드 커버리지가 100% 되어야 한다.|X|
+|4. 코드 커버리지 100%|D5 - 리팩토링이 끝난 코드에, 코드 커버리지가 100% 되어야 한다.|O|
 
 ### 2. Code Coverage 최종 측정결과 캡쳐화면
-![image](https://github.com/user-attachments/assets/230ccf15-6a82-4510-8c46-cd970f2eb93b)
+![image](https://github.com/user-attachments/assets/ba3ad148-29cd-456a-8fd5-ec71df5c0024)
+
