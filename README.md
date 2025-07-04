@@ -11,4 +11,4 @@
 |4. 코드 커버리지 100%|D5 - 리팩토링이 끝난 코드에, 코드 커버리지가 100% 되어야 한다.|X|
 
 ### 2. Code Coverage 최종 측정결과 캡쳐화면
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/230ccf15-6a82-4510-8c46-cd970f2eb93b)
