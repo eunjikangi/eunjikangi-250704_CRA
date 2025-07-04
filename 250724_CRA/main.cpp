@@ -126,30 +126,42 @@ void printStepUI(int step)
 
 bool isInputValid(int step, int answer)
 {
-    if (step == CarType_Q && !(answer >= MIN_CAR_TYPE && answer <= MAX_CAR_TYPE)) return false;
-    if (step == Engine_Q && !(answer >= MIN_ENGINE && answer <= MAX_ENGINE)) return false;
-    if (step == brakeSystem_Q && !(answer >= MIN_BRAKE && answer <= MAX_BRAKE)) return false;
-    if (step == SteeringSystem_Q && !(answer >= MIN_STEERING && answer <= MAX_STEERING)) return false;
-    if (step == Run_Test && !(answer >= MIN_RUN_TEST && answer <= MAX_RUN_TEST)) return false;
+    if (step == CarType_Q && !(answer >= MIN_CAR_TYPE && answer <= MAX_CAR_TYPE)) {
+        printf("ERROR :: 차량 타입은 1 ~ 3 범위만 선택 가능\n");
+        return false;
+    }
+    if (step == Engine_Q && !(answer >= MIN_ENGINE && answer <= MAX_ENGINE)) {
+        printf("ERROR :: 엔진은 1 ~ 4 범위만 선택 가능\n");
+        return false;
+    }
+    if (step == brakeSystem_Q && !(answer >= MIN_BRAKE && answer <= MAX_BRAKE)) {
+        printf("ERROR :: 제동장치는 1 ~ 3 범위만 선택 가능\n");
+        return false;
+    }
+    if (step == SteeringSystem_Q && !(answer >= MIN_STEERING && answer <= MAX_STEERING)) {
+        printf("ERROR :: 조향장치는 1 ~ 2 범위만 선택 가능\n");
+        return false;
+    }
+    if (step == Run_Test && !(answer >= MIN_RUN_TEST && answer <= MAX_RUN_TEST)) {
+        printf("ERROR :: Run 또는 Test 중 하나를 선택 필요\n");
+        return false;
+    }
     return true;
 }
 
 void processAnswer(int& step, int answer)
 {
-    if (answer == 0 && step == Run_Test)
-    {
+    if (answer == 0 && step == Run_Test) {
         step = CarType_Q;
         return;
     }
 
-    if (answer == 0 && step >= 1)
-    {
+    if (answer == 0 && step >= 1) {
         step -= 1;
         return;
     }
 
-    switch (step)
-    {
+    switch (step) {
     case CarType_Q:
         selectCarType(answer);
         step = Engine_Q;
@@ -167,13 +179,11 @@ void processAnswer(int& step, int answer)
         step = Run_Test;
         break;
     case Run_Test:
-        if (answer == RUN)
-        {
+        if (answer == RUN) {
             runProducedCar();
             delay(2000);
         }
-        else if (answer == TEST)
-        {
+        else if (answer == TEST) {
             printf("Test...\n");
             delay(1500);
             testProducedCar();
@@ -196,8 +206,7 @@ int main()
         fgets(buf, sizeof(buf), stdin);
         strtok(buf, "\r\n");
 
-        if (!strcmp(buf, "exit"))
-        {
+        if (!strcmp(buf, "exit")) {
             printf("바이바이\n");
             break;
         }
@@ -205,16 +214,13 @@ int main()
         char* checkNumber;
         int answer = strtol(buf, &checkNumber, 10);
 
-        if (*checkNumber != '\0')
-        {
+        if (*checkNumber != '\0') {
             printf("ERROR :: 숫자만 입력 가능\n");
             delay(800);
             continue;
         }
 
-        if (!isInputValid(step, answer))
-        {
-            printf("ERROR :: 유효한 입력이 아닙니다\n");
+        if (!isInputValid(step, answer)) {
             delay(800);
             continue;
         }
@@ -277,14 +283,12 @@ int isValidCheck()
 
 void runProducedCar()
 {
-    if (!isValidCheck())
-    {
+    if (!isValidCheck()) {
         printf("자동차가 동작되지 않습니다\n");
         return;
     }
 
-    if (stack[Engine_Q] == BROKEN_ENGINE)
-    {
+    if (stack[Engine_Q] == BROKEN_ENGINE) {
         printf("엔진이 고장나있습니다.\n");
         printf("자동차가 움직이지 않습니다.\n");
         return;
@@ -321,33 +325,27 @@ void runProducedCar()
 
 void testProducedCar()
 {
-    if (stack[CarType_Q] == SEDAN && stack[brakeSystem_Q] == CONTINENTAL)
-    {
+    if (stack[CarType_Q] == SEDAN && stack[brakeSystem_Q] == CONTINENTAL) {
         printf("자동차 부품 조합 테스트 결과 : FAIL\n");
         printf("Sedan에는 Continental제동장치 사용 불가\n");
     }
-    else if (stack[CarType_Q] == SUV && stack[Engine_Q] == TOYOTA)
-    {
+    else if (stack[CarType_Q] == SUV && stack[Engine_Q] == TOYOTA) {
         printf("자동차 부품 조합 테스트 결과 : FAIL\n");
         printf("SUV에는 TOYOTA엔진 사용 불가\n");
     }
-    else if (stack[CarType_Q] == TRUCK && stack[Engine_Q] == WIA)
-    {
+    else if (stack[CarType_Q] == TRUCK && stack[Engine_Q] == WIA) {
         printf("자동차 부품 조합 테스트 결과 : FAIL\n");
         printf("Truck에는 WIA엔진 사용 불가\n");
     }
-    else if (stack[CarType_Q] == TRUCK && stack[brakeSystem_Q] == MANDO)
-    {
+    else if (stack[CarType_Q] == TRUCK && stack[brakeSystem_Q] == MANDO) {
         printf("자동차 부품 조합 테스트 결과 : FAIL\n");
         printf("Truck에는 Mando제동장치 사용 불가\n");
     }
-    else if (stack[brakeSystem_Q] == BOSCH_B && stack[SteeringSystem_Q] != BOSCH_S)
-    {
+    else if (stack[brakeSystem_Q] == BOSCH_B && stack[SteeringSystem_Q] != BOSCH_S) {
         printf("자동차 부품 조합 테스트 결과 : FAIL\n");
         printf("Bosch제동장치에는 Bosch조향장치 이외 사용 불가\n");
     }
-    else
-    {
+    else {
         printf("자동차 부품 조합 테스트 결과 : PASS\n");
     }
 }
