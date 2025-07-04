@@ -204,9 +204,13 @@ int main()
     {
         printStepUI(step);
         fgets(buf, sizeof(buf), stdin);
-        strtok(buf, "\r\n");
 
-        if (!strcmp(buf, "exit")) {
+        char* context = nullptr;
+        strtok_s(buf, "\r", &context);
+        strtok_s(buf, "\n", &context);
+
+        if (!strcmp(buf, "exit"))
+        {
             printf("바이바이\n");
             break;
         }
